@@ -4,144 +4,226 @@ This project aims to upgrade various aspects of the IT infrastructure efficientl
 
 ## Project Overview
 
-This project aims to upgrade various aspects of the IT infrastructure efficiently. It encompasses essential enhancements across multiple areas:
+This IT project aims to enhance the existing IT infrastructure by implementing various improvements and configurations across multiple areas, including virtualization, system monitoring, iSCSI, NTP, LDAP, network services, DNS, web services, NFS, and SMB services. The project encompasses several phases, each focused on a specific aspect of infrastructure enhancement.
 
 ## Project Phases
 
-### Phase I: Virtualization & Monitoring
+#### Installing and Configuring Virtual Machines (VMs)
+- Installed CentOS 8 Stream as the base operating system.
+- Updated packages using sudo dnf update.
+- Installed essential development tools and libraries.
+- Took a snapshot of the updated base install.
+- Resolved repository deprecation issues.
+- Migrated to Rocky Linux using the migrate2rocky.sh script.
+- Gathered system statistics using sysstat.
 
-1. **VM Enhancement**
-   - Installed CentOS 8 Stream as the base OS.
-   - Updated packages.
-   - Snapshot of the base install.
-   - Resolved repo issues.
-   - Migrated to Rocky Linux.
-   - Gathered system stats with sysstat.
+### Phase II: System Monitoring and Reporting
 
-### Phase II: System Monitoring & Reports
+#### Creating System Reports with Sysstat
+- Checked system logs in /var/log and analyzed the sa29 file.
+- Utilized various sar options such as -d and -x.
+- Used the userlog.sh script to create user-specific logs.
+- Scheduled report generation with cron and monitored system performance.
+  
+![image1](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/231d0006-99dc-4258-ad0a-335a2a439031)
 
-2. **Sysstat Reporting**
-   - Analyzed system logs.
-   - Utilized `sar` options.
-   - Created user-specific logs.
-   - Scheduled report generation.
+![image2](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/5667d292-2dee-4e30-a063-568575502d21)
 
-### Phase III: iSCSI Configuration
+![image3](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/ecec513d-c267-47a2-acc1-e2d62f100340)
 
-3. **iSCSI Target & Initiator**
-   - Set up iSCSI target/initiator.
-   - Created iSCSI backstore and LUNs.
-   - Implemented access control.
-   - Verified iSCSI target.
+![image4](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/41d4ed83-dec6-4ad2-b7cf-73bbbe434461)
 
-### Phase IV: NTP Server Setup
+### Phase III: iSCSI Target Configuration
 
-4. **NTP Server Configuration**
-   - Configured Chrony as an NTP server.
-   - Allowed network requests.
-   - Set up Chrony as an NTP client.
-   - Verified time synchronization.
+#### Configuring iSCSI Target and Initiator
+- Cloned rhhost1 to create rhhost2 as the target.
+- Configured iSCSI target on rhhost1 using targetcli.
+- Installed and configured the iSCSI initiator on rhhost2.
+- Created an iSCSI backstore and LUNs.
+- Implemented access control and authentication.
+- Verified iSCSI target availability using netstat.
+   - 
+![image5](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/106b68ad-2134-4243-aef9-348d19be0926)
 
-### Phase V: LDAP Authentication
+![image6](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/6e526822-d053-412a-803b-4b96f378d8c8)
 
-5. **LDAP for Authentication**
-   - Installed LDAP packages.
-   - Configured SELinux booleans.
-   - Set up LDAP server.
-   - Loaded LDIF files.
-   - Configured LDAP client.
-   - Tested user retrieval.
+![image7](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/fd73e9d2-f86b-46f7-a6c0-37206b2d80b6)
 
-### Phase VI: Network Enhancements
+![image8](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/fe0658e6-9e0c-4adc-b0a8-208091051e10)
 
-6. **Network Enhancements**
-   - Installed network tools.
-   - Checked network setup.
-   - Configured interface bonding/teaming.
-   - Managed firewalls.
+![image9](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/eea309c3-66c3-4155-87ef-0964d7280937)
 
-### Phase VII: DNS Cache Server
+![image10](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/a4fa6182-de38-4697-9379-0553c536a935)
 
-7. **Cache DNS Server**
-   - Installed BIND.
-   - Configured cache DNS server.
-   - Disabled DNSSEC.
-   - Checked configuration and firewall.
+![image11](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/f2000b1b-c62e-46a2-9ef5-c5b9271d2f9a)
 
-### Phase VIII: Apache Web Services
+### Phase IV: Network Time Protocol (NTP) Server Configuration
 
-8. **Apache Web Services**
-   - Installed Apache.
-   - Customized welcome page.
-   - Explored SSL config.
-   - Created secure virtual hosts.
-   - Set up SSL certificates.
-   - Configured password-based authentication.
+#### Setting up an NTP Server
+- Checked the status of the Chrony service.
+- Configured rhhost1 as an NTP time server and allowed requests from the local network.
+- Opened the necessary firewall ports for NTP.
+- Configured rhhost2 as an NTP client.
+- Synchronized time with rhhost1 and verified synchronization.
+  
+![image12](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/a6d85bbf-927f-464f-9e33-e306417ce532)
+
+![image13](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/1802df2b-3010-419f-ba3f-0f619417a815)
+
+
+### Phase V: Authentication Services with LDAP
+
+#### Implementing LDAP for Authentication
+- Installed LDAP packages on rhhost1 and configured SELinux booleans.
+- Started and enabled the LDAP server (slapd).
+- Loaded LDIF files to set up LDAP directories and users.
+- Configured LDAP client on rhhost2.
+- Tested user information retrieval using getent passwd.
+     
+- ![image14](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/9456582a-26eb-45ac-bf69-d58c2a7f3f9d)
+- 
+![image15](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/201913ee-c64b-44e4-8c79-5b407910c3b0)
+
+![image16](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/78ca69a5-10c5-4f83-bd92-cc448891e54c)
+
+![image17](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/f5b66235-39d6-4866-95c0-ecf64af0fa6b)
+
+![image18](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/5c283004-d152-47d6-8ff8-ef336721c16e)
+
+![image19](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/9fe87191-947e-4fde-a8d6-321dab1b57af)
+
+![image20](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/237fa9cf-0d9d-46e5-a57a-2ab668458a8e)
+
+
+### Phase VI: Network Services Introduction
+
+#### Introducing Network Services
+- Installed network tools and utilities.
+- Checked network interfaces, hostnames, and NetworkManager status.
+- Configured interface bonding and teaming.
+- Verified the status of bonded interfaces.
+- Demonstrated the creation and removal of bonds and teams.
+- Introduced basic firewall configuration and management.
+     
+![image21](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/53902bac-da53-4456-ae50-fd1fd243912e)
+
+![image22](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/e8765f5a-f79b-4da7-9b33-54f63a5a23ba)
+
+![image23](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/3a0141b6-67b4-42e0-a961-de3fd3b0ae07)
+
+![image24](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/92d29e58-e01f-4043-9191-2bf1c92a669e)
+
+![image25](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/6e303269-4597-4be2-af74-dbb9a9848d81)
+
+![image26](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/c64ad0af-c44b-48df-8b22-a2142358f38d)
+
+![image27](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/d10751f8-667e-4839-b1b3-9e3fb0aeb051)
+
+
+
+
+### Phase VII: DNS Service Introduction (Setting up a Cache DNS)
+
+#### Setting up a Cache DNS Server
+- Installed and configured BIND (named) as a cache DNS server.
+- Modified the configuration to allow DNS queries from any address.
+- Disabled DNSSEC features for simplicity.
+- Checked DNS configuration and firewall settings.
+- Configured a DNS client on rhhost2 to use rhhost1 as a DNS resolver.
+- 
+![image28](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/42cabdf2-83d0-48e0-9653-057e797c3b61)
+
+
+### Phase VIII: Web Services with Apache
+
+#### Configuring Apache Web Services
+- Installed Apache HTTP Server and related packages.
+- Started and enabled the Apache service.
+- Configured the firewall to allow HTTP traffic.
+- Customized the default welcome page and verified the changes.
+- Explored SSL configuration in /etc/httpd/conf.d/ssl.conf.
+- Created and secured a virtual host with SSL support.
+- Demonstrated SSL certificate creation and installation.
+- Configured password-based authentication for a private website.
+- 
+![image29](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/845fc1f1-6ea9-48b6-88c4-287a7fb5c920)
+
+![image30](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/7a7e293e-c126-4a7f-835f-87f742741f9c)
+
+![image31](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/f1d279c6-5923-4a7f-a7ce-604a875fd7d5)
+
+![image32](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/c4d749d0-2138-4253-a56d-f2fccdb11964)
+
+![image33](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/58171bef-6038-4c19-a6df-c3ef95231a32)
+
+![image34](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/a7af7938-a63a-427b-82dd-c9e71ac81675)
+
+![image35](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/6cc11de9-4e71-44ff-8555-247c693e6c83)
+
+![image36](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/ebc04868-6d47-49b7-944f-ee842ae7bf95)
+
+![image37](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/7eef1968-2ce8-4ed5-b070-a2ea0bf8bac2)
+
+![image38](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/1d88a5f4-2995-4677-a545-7987e49fa7d8)
+
+![image39](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/187f1fdf-7748-49e2-86db-6869b19a412e)
+
+![image40](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/afc56f44-8882-4b7c-a877-dccec779998e)
+
 
 ### Phase IX: NFS Services
 
-9. **NFS Configuration**
-   - Installed NFS utilities.
-   - Managed SELinux booleans.
-   - Exported NFS shares.
-   - Demonstrated group collaboration.
+#### Configuring NFS Services
+- Installed NFS utilities on both hosts.
+- Managed SELinux booleans for NFS.
+- Created a directory for NFS sharing and set appropriate permissions.
+- Exported NFS shares and tested NFS mounting on rhhost2.
+- Demonstrated group collaboration with shared NFS directories.
+  
+![image41](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/20e1b829-6dc8-4c91-a494-28ad8751c82f)
 
-### Phase X: SMB Services
+![image42](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/acabd9f7-d3c4-4385-b23c-2b72ca77951f)
 
-10. **SMB Services (Samba)**
-    - Installed Samba.
-    - Configured shares.
-    - Set up user accounts.
-    - Tested Samba access.
+![image43](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/18fd107a-1a54-41f2-8956-b56412e7734e)
 
-## Project Conclusion
+![image44](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/774d3f2b-498e-46aa-ad5c-2f38ca252dbf)
 
-This IT infrastructure upgrade project successfully modernized and optimized the infrastructure across multiple areas, enhancing efficiency and security.
+### Phase X: SMB Services (Samba)
 
-![image32](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/eb8183de-60f8-49df-ba54-eca8366f0ca8)
-![image33](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/0e2cfe72-8521-4abc-943e-fc5420a13edc)
-![image34](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/83b71b49-42a2-43a8-a7b5-f6749362d0c0)
-![image35](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/c947162e-85fb-48af-a55a-713edfeb240f)
-![image36](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/f921d2cc-c2a6-4987-8df3-96c2a96b2172)
-![image37](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/8c732159-b1d5-416a-b8a6-aa7d9ed2f154)
-![image38](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/7eb25687-d3bd-42e4-bb0b-6976e997f31e)
-![image39](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/d62ee853-3f6b-408f-9ccc-88987a5f443c)
-![image40](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/d7a280d5-710a-434e-90fc-ee9d082d40b4)
-![image41](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/55781c45-45ca-4e1d-b0e6-eef49e051f22)
-![image42](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/ae41319b-cf48-43a2-acda-47e56b1696ee)
-![image43](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/75659dd9-4728-42ed-a7de-c851d304bf8e)
-![image44](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/3b684cee-0168-43bd-93d9-d02a20c15ffb)
-![image45](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/5f8e90cb-fd91-445b-ad6e-d4b45a54c069)
-![image46](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/6bf12b57-5489-4e81-87ff-85d3dafc213b)
-![image47](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/da816912-6ce0-4b0f-9081-a4e87c5efa2d)
-![image1](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/63372dd5-11cc-4e02-a735-5dda4a4b95d8)
-![image2](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/f85034e9-a6f6-4738-90b9-50d3131666f7)
-![image3](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/9cfedf05-0467-4ebb-bc31-9d4c9c1d54dc)
-![image4](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/1200f071-f766-4c28-a28c-2c7764f98f53)
-![image5](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/84281fb5-81f3-4d4b-9158-415b91f13f0b)
-![image6](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/4102ddbc-0554-4b3c-89ac-26e4712743eb)
-![image7](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/9b9d4c01-eff5-4375-9dba-752abf08b70f)
-![image8](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/02581799-16ae-4062-ba94-c3359b17778e)
-![image9](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/b0ce5501-4ed2-4bb5-adac-36966999e2ed)
-![image10](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/8f72ba1a-5ed6-4635-aa94-f7f3eff1f0b5)
-![image11](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/f4133862-cf17-439e-9253-c743286dfd04)
-![image12](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/1ecd216f-c646-4b96-923f-aa974b946444)
-![image13](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/cc0d579c-3e1c-4ee9-b8b4-d958296bea84)
-![image14](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/d43740a5-fd7c-4d04-aecd-13ef18b13d44)
-![image15](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/5e638c1a-2008-4c81-9342-e34446783af1)
-![image16](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/cb9a793b-6e8d-40fd-b6eb-f19726dde5de)
-![image17](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/e3b8dc94-e576-4429-8c5e-48b372a8943c)
-![image18](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/499828e7-c8a8-4887-a0f0-eb78b001b185)
-![image19](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/743117f5-3a99-402f-b449-e77df2e472e2)
-![image20](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/967d7ac7-eeb4-4de1-8755-811afa5b38ca)
-![image21](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/268db410-3eb0-486d-b30d-8864b3317c3f)
-![image22](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/2669e307-d77b-4097-ba87-d7574121f631)
-![image23](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/b43eadc2-9ebf-4da5-9411-13b9adac40c3)
-![image24](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/22fab5f9-f965-4696-89c9-27ef97946eb3)
-![image25](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/ecca0d8f-b4b3-4f03-8c12-70eb68ba7966)
-![image26](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/31e5a27c-a01e-4210-ac09-d56ac657d1fe)
-![image27](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/7b25857a-53bf-4508-9dc7-50ec96b885a3)
-![image28](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/10056860-fbaa-43e3-9cb4-0fa6433b69ad)
-![image29](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/00d913ce-4b1a-4863-add8-0eceda6ed15f)
-![image30](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/1a6b7605-34dd-4919-94a2-954a056a1306)
+#### Implementing SMB Services with Samba
+- Installed Samba and related packages on both hosts.
+- Checked existing SELinux booleans and adjusted them as needed.
+- Configured Samba shares for both public and private access.
+- Set up user accounts and passwords for Samba access.
+- Tested Samba shares and access permissions.
+
+![image45](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/6e057fe8-369b-45d7-a2b7-a2bc9ca50461)
+
+![image46](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/af37cb5e-c6a1-4112-b9c7-2bae2a630b35)
+
+![image47](https://github.com/jbdjerhy/RedHat_Advanced_Services_Configuration/assets/142699688/aa0d8a72-c37f-473c-a4d7-108403b7bf81)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
